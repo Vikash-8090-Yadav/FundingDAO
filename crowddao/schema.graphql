@@ -1,0 +1,13 @@
+type campaignCreated @entity(immutable: true) {
+  id: Bytes!
+  title: String! # string
+  requiredAmount: BigInt! # uint256
+  owner: Bytes! # address
+  campaignAddress: Bytes! # address
+  imgURI: String! # string
+  timestamp: BigInt! # uint256
+  category: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
