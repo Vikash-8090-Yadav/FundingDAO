@@ -22,7 +22,7 @@ export default function Detail({Data, DonationsData}) {
       const Address = await signer.getAddress();
 
       const provider = new ethers.providers.JsonRpcProvider(
-        process.env.NEXT_PUBLIC_RPC_URL
+        "https://polygon-mumbai.g.alchemy.com/v2/MeKFrDq5O-mlM8I0CzXpKg0pRvdNRjxF"
       );
     
       const contract = new ethers.Contract(
@@ -44,7 +44,9 @@ export default function Detail({Data, DonationsData}) {
           timestamp : parseInt(e.args.timestamp)
         }
       }));
-
+      Data.address,
+      Campaign.abi,
+      provider
       setStory(storyData);
     }
 
@@ -140,11 +142,11 @@ export default function Detail({Data, DonationsData}) {
 
 export async function getStaticPaths() {
   const provider = new ethers.providers.JsonRpcProvider(
-    process.env.NEXT_PUBLIC_RPC_URL
+    "https://polygon-mumbai.g.alchemy.com/v2/MeKFrDq5O-mlM8I0CzXpKg0pRvdNRjxF"
   );
 
   const contract = new ethers.Contract(
-    process.env.NEXT_PUBLIC_ADDRESS,
+    "0xB38DfdACe3Fc2f70c89016131792a2aDad1d9940",
     CampaignFactory.abi,
     provider
   );
@@ -164,7 +166,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   const provider = new ethers.providers.JsonRpcProvider(
-    process.env.NEXT_PUBLIC_RPC_URL
+    "https://polygon-mumbai.g.alchemy.com/v2/MeKFrDq5O-mlM8I0CzXpKg0pRvdNRjxF"
   );
 
   const contract = new ethers.Contract(

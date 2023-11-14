@@ -4,6 +4,11 @@ pragma solidity >0.7.0 <=0.9.0;
 
 contract CampaignFactory {
     address[] public deployedCampaigns;
+    uint public requiredAmount;
+ uint public receivedAmount;
+     event Donation(address indexed from, string name, string message, uint256 timestamp, uint256 amount);
+
+    event donated(address indexed donar, uint indexed amount, uint indexed timestamp);
 
     event campaignCreated(
         string title,
@@ -14,6 +19,22 @@ contract CampaignFactory {
         uint indexed timestamp,
         string indexed category
     );
+
+     constructor() {
+        Rowner = payable(msg.sender);
+        
+    }
+
+
+    struct Memo {
+        string name;
+        string message;
+        uint timestamp;
+        address from;
+    }
+
+    Memo[] memos;
+    address payable public Rowner;
 
     function createCampaign(
         string memory campaignTitle, 
@@ -39,6 +60,34 @@ contract CampaignFactory {
             category
         );
 
+    }
+
+    function donate() public payable {
+        require(requiredAmount > receivedAmount, "required amount fullfilled");
+        Rowner.transfer(msg.value);
+        receivedAmount += msg.value;
+        emit donated(msg.sender, msg.value, block.timestamp);
+    }
+
+
+
+     function buyChai(string memory name, string memory message) public payable {
+        require(msg.value > 0, "Please pay something greater than 0");
+        Rowner.transfer(msg.value); // Will transfer donator's money to the smart contract owner
+        memos.push(Memo(name, message, block.timestamp, msg.sender)); // Now we will add that donator to our donators list
+
+        // Emit the Donation event
+        emit Donation(msg.sender, name, message, block.timestamp, msg.value);
+        
+    }
+
+    // You can get a list of all donators and the total holdings of funds by this function on the frontend
+    function getMemos() public view returns (Memo[] memory) {
+        return memos;
+    }
+
+    function getBalance() public view returns (uint256) {
+        return Rowner.balance;
     }
 }
 
