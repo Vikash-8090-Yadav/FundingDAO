@@ -6,12 +6,61 @@ import EventIcon from '@mui/icons-material/Event';
 import Image from 'next/image';
 import { ethers } from 'ethers';
 import CampaignFactory from '../artifacts/contracts/Campaign.sol/CampaignFactory.json'
-import { useState } from 'react';
+import { useState, useEffect } from "react";
+
 import Link from 'next/link'
 
-export default function Index({AllData, HealthData, EducationData,AnimalData}) {
-  const [filter, setFilter] = useState(AllData);
+import { createClient } from 'urql';
 
+export default function Index({AllData, HealthData, EducationData,AnimalData}) {
+
+
+  const [tokens, setTokens] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+
+  const QueryURL = "https://api.studio.thegraph.com/query/54911/funding/v0.0.1";
+
+  const query = `
+  {
+    campaignCreateds(first: 5, orderBy: id) {
+      id
+      title
+      requiredAmount
+      owner
+      campaignAddress
+      timestamp
+      imgURI
+    }
+  }
+  `;
+
+  const client = createClient({
+    url: QueryURL
+  });
+
+  useEffect(() => {
+    if (!client) {
+      return;
+    }
+
+    const getTokens = async () => {
+      try {
+        const { data } = await client.query(query).toPromise();
+        setTokens(data.campaignCreateds);
+        // console.log(data)
+        setIsLoading(false); // Data is loaded
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    getTokens();
+  }, [client]);
+
+
+  const [filter, setFilter] = useState(AllData);
+  
   return (
     <HomeWrapper>
 
@@ -27,33 +76,35 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
       {/* Cards Container */}
       <CardsWrapper>
 
-      {/* Card */}
-      {filter.map((e) => {
+      
+      {tokens.map((token) => {
+        const owner = token.owner;
         return (
-          <Card key={e.title}>
+          <Card key={token.title}>
           <CardImg>
             <Image 
               alt="Crowdfunding dapp"
               layout='fill' 
-              src={"https://crowdfunding.infura-ipfs.io/ipfs/" + e.image} 
+              src={"https://crowdfunding.infura-ipfs.io/ipfs/" + token.imgURI} 
             />
           </CardImg>
           <Title>
-            {e.title}
+            {token.title}
           </Title>
           <CardData>
             <Text>Owner<AccountBoxIcon /></Text> 
-            <Text>{e.owner.slice(0,6)}...{e.owner.slice(39)}</Text>
+            <Text>{owner.slice(0,6)}...{owner.slice(39)}</Text>
           </CardData>
+          
           <CardData>
             <Text>Amount<PaidIcon /></Text> 
-            <Text>{e.amount} Matic</Text>
+            <Text>{token.requiredAmount} Matic</Text>
           </CardData>
           <CardData>
             <Text><EventIcon /></Text>
-            <Text>{new Date(e.timeStamp * 1000).toLocaleString()}</Text>
+            <Text>{new Date(token.timestamp * 1000).toLocaleString()}</Text>
           </CardData>
-          <Link passHref href={'/' + e.address}><Button>
+          <Link passHref href={'/' + token.campaignAddress}><Button>
             Go to Campaign
           </Button></Link>
         </Card>
@@ -69,6 +120,8 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
 
 
 export async function getStaticProps() {
+
+
   const provider = new ethers.providers.JsonRpcProvider(
     "https://polygon-mumbai.g.alchemy.com/v2/MeKFrDq5O-mlM8I0CzXpKg0pRvdNRjxF"
   );

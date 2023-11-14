@@ -36,6 +36,42 @@
         "Campaign",
         "CampaignFactory"
       ]
+    },
+    "/home/vikash/Desktop/all_git_files/FundingDAO/contracts/Campaign.sol": {
+      "lastModificationDate": 1699981158795,
+      "contentHash": "0f48645484c467d2274f3d22993a9a57",
+      "sourceName": "contracts/Campaign.sol",
+      "solcConfig": {
+        "version": "0.8.10",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">0.7.0 <=0.9.0"
+      ],
+      "artifacts": [
+        "Campaign",
+        "CampaignFactory"
+      ]
     }
   }
 }

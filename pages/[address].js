@@ -60,10 +60,16 @@ export default function Detail({Data, DonationsData}) {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       
-      const contract = new ethers.Contract(Data.address, Campaign.abi, signer);
+      // const contract = new ethers.Contract(Data.address, Campaign.abi, signer);
       
-      const transaction = await contract.donate({value: ethers.utils.parseEther(amount)});
-      await transaction.wait();
+      // const transaction = await contract.donate({value: ethers.utils.parseEther(amount)});
+      // await transaction.wait();
+
+
+      const contract1 = new ethers.Contract(Data.address, CampaignFactory.abi, signer);
+      
+      const transaction1 = await contract1.donate({value: ethers.utils.parseEther(amount)});
+      await transaction1.wait();
 
       setChange(true);
       setAmount('');
@@ -146,7 +152,7 @@ export async function getStaticPaths() {
   );
 
   const contract = new ethers.Contract(
-    "0xB38DfdACe3Fc2f70c89016131792a2aDad1d9940",
+    "0x791EC018A1aFbb13CEF43E88EF156b7261096142",
     CampaignFactory.abi,
     provider
   );
@@ -175,6 +181,12 @@ export async function getStaticProps(context) {
     provider
   );
 
+  const contract1 = new ethers.Contract(
+    "0x791EC018A1aFbb13CEF43E88EF156b7261096142",
+    CampaignFactory.abi,
+    provider
+  );
+
   const title = await contract.title();
   const requiredAmount = await contract.requiredAmount();
   const image = await contract.image();
@@ -184,6 +196,9 @@ export async function getStaticProps(context) {
 
   const Donations = contract.filters.donated();
   const AllDonations = await contract.queryFilter(Donations);
+
+  const Donations1 = contract1.filters.donated();
+  const AllDonations1 = await contract1.queryFilter(Donations);
 
 
   const Data = {

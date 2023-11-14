@@ -24,7 +24,7 @@ export default function Dashboard() {
       );
   
       const contract = new ethers.Contract(
-        "0xB38DfdACe3Fc2f70c89016131792a2aDad1d9940",
+        "0x791EC018A1aFbb13CEF43E88EF156b7261096142",
         CampaignFactory.abi,
         provider
       );
