@@ -24,7 +24,10 @@ module.exports = {
 };
 
 
-// 0x791EC018A1aFbb13CEF43E88EF156b7261096142
+// 0xb802d6AF3924A1386038bA69DF29d996B4cA172E
 
 // https://api.studio.thegraph.com/query/54911/funding/v0.0.1
+
+// https://api.studio.thegraph.com/query/54911/fundingdao/v0.0.1
+
 

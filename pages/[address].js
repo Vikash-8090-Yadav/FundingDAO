@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 
 
 export default function Detail({Data, DonationsData}) {
+
+  console.log(DonationsData);
   const [mydonations, setMydonations] = useState([]);
   const [story, setStory] = useState('');
   const [amount, setAmount] = useState();
@@ -30,12 +32,20 @@ export default function Detail({Data, DonationsData}) {
         Campaign.abi,
         provider
       );
+      const contract1 = new ethers.Contract(
+        Data.address,
+        CampaignFactory.abi,
+        provider
+      );
 
       fetch('https://crowdfunding.infura-ipfs.io/ipfs/' + Data.storyUrl)
             .then(res => res.text()).then(data => storyData = data);
 
-      const MyDonations = contract.filters.donated(Address);
-      const MyAllDonations = await contract.queryFilter(MyDonations);
+      const MyDonations = contract1.filters.donated(Address);
+      const MyAllDonations = await contract1.queryFilter(MyDonations);
+
+      // const m = await contract1.donated();
+      // console.log("The addres",m);
 
       setMydonations(MyAllDonations.map((e) => {
         return {
@@ -52,6 +62,8 @@ export default function Detail({Data, DonationsData}) {
 
     Request();
   }, [change])
+
+  console.log("The",mydonations)
 
 
   const DonateFunds = async () => {
@@ -70,7 +82,7 @@ export default function Detail({Data, DonationsData}) {
       
       const transaction1 = await contract1.donate({value: ethers.utils.parseEther(amount)});
       await transaction1.wait();
-
+      console.log(transaction1);
       setChange(true);
       setAmount('');
       
@@ -152,7 +164,7 @@ export async function getStaticPaths() {
   );
 
   const contract = new ethers.Contract(
-    "0x791EC018A1aFbb13CEF43E88EF156b7261096142",
+    "0xb802d6AF3924A1386038bA69DF29d996B4cA172E",
     CampaignFactory.abi,
     provider
   );
@@ -182,7 +194,7 @@ export async function getStaticProps(context) {
   );
 
   const contract1 = new ethers.Contract(
-    "0x791EC018A1aFbb13CEF43E88EF156b7261096142",
+    context.params.address,
     CampaignFactory.abi,
     provider
   );
@@ -198,7 +210,9 @@ export async function getStaticProps(context) {
   const AllDonations = await contract.queryFilter(Donations);
 
   const Donations1 = contract1.filters.donated();
-  const AllDonations1 = await contract1.queryFilter(Donations);
+  const AllDonations1 = await contract1.queryFilter(Donations1);
+
+  
 
 
   const Data = {
@@ -211,12 +225,13 @@ export async function getStaticProps(context) {
       owner,
   }
 
-  const DonationsData =  AllDonations.map((e) => {
+  const DonationsData =  AllDonations1.map((e) => {
     return {
       donar: e.args.donar,
       amount: ethers.utils.formatEther(e.args.amount),
       timestamp : parseInt(e.args.timestamp)
   }});
+  
 
   return {
     props: {

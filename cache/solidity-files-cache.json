@@ -38,8 +38,8 @@
       ]
     },
     "/home/vikash/Desktop/all_git_files/FundingDAO/contracts/Campaign.sol": {
-      "lastModificationDate": 1699981158795,
-      "contentHash": "0f48645484c467d2274f3d22993a9a57",
+      "lastModificationDate": 1699989417730,
+      "contentHash": "6bd17ccde5a5d5de072f797fad504d49",
       "sourceName": "contracts/Campaign.sol",
       "solcConfig": {
         "version": "0.8.10",

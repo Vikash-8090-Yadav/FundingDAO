@@ -20,12 +20,6 @@ contract CampaignFactory {
         string indexed category
     );
 
-     constructor() {
-        Rowner = payable(msg.sender);
-        
-    }
-
-
     struct Memo {
         string name;
         string message;
@@ -35,6 +29,16 @@ contract CampaignFactory {
 
     Memo[] memos;
     address payable public Rowner;
+    address payable public owner;
+
+     constructor() {
+       
+        Rowner = payable(msg.sender);
+        
+    }
+
+
+    
 
     function createCampaign(
         string memory campaignTitle, 
@@ -57,16 +61,14 @@ contract CampaignFactory {
             address(newCampaign),
             imgURI,
             block.timestamp,
-            category
+            category 
         );
 
     }
 
-    function donate() public payable {
-        require(requiredAmount > receivedAmount, "required amount fullfilled");
-        Rowner.transfer(msg.value);
-        receivedAmount += msg.value;
-        emit donated(msg.sender, msg.value, block.timestamp);
+    function donate(uint requiredAmount1 ) public payable {
+        
+        emit donated(msg.sender, requiredAmount1, block.timestamp);
     }
 
 

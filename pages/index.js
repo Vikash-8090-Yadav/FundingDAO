@@ -19,7 +19,7 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
   const [isLoading, setIsLoading] = useState(true);
 
 
-  const QueryURL = "https://api.studio.thegraph.com/query/54911/funding/v0.0.1";
+  const QueryURL = "https://api.studio.thegraph.com/query/54911/fundingdao/v0.0.1";
 
   const query = `
   {
@@ -127,7 +127,7 @@ export async function getStaticProps() {
   );
 
   const contract = new ethers.Contract(
-    "0xB38DfdACe3Fc2f70c89016131792a2aDad1d9940",
+    "0xb802d6AF3924A1386038bA69DF29d996B4cA172E",
     CampaignFactory.abi,
     provider
   );

@@ -55,7 +55,7 @@ const Form = () => {
           setLoading(true);  
     
           const contract = new ethers.Contract(
-            "0xB38DfdACe3Fc2f70c89016131792a2aDad1d9940",
+            "0xb802d6AF3924A1386038bA69DF29d996B4cA172E",
             CampaignFactory.abi,
             signer
           );
