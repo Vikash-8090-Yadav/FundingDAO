@@ -16,6 +16,10 @@ const HeaderNav = () => {
       <Link passHref href={'/dashboard'}><HeaderNavLinks active={Router.pathname == "/dashboard" ? true : false} >
         Dashboard
       </HeaderNavLinks></Link>
+      <Link passHref href={'/review'}><HeaderNavLinks active={Router.pathname == "/review" ? true : false} >
+        Discusssion
+      </HeaderNavLinks></Link>
+
     </HeaderNavWrapper>
   )
 }

@@ -26,8 +26,7 @@ module.exports = {
 
 // 0xb802d6AF3924A1386038bA69DF29d996B4cA172E
 
-// https://api.studio.thegraph.com/query/54911/funding/v0.0.1
+// https://api.studio.thegraph.com/query/54911/funddao/v0.0.1
 
-// https://api.studio.thegraph.com/query/54911/fundingdao/v0.0.1
 
 

@@ -4,9 +4,50 @@ import {ethers} from 'ethers';
 import CampaignFactory from '../artifacts/contracts/Campaign.sol/CampaignFactory.json'
 import Campaign from '../artifacts/contracts/Campaign.sol/Campaign.json'
 import { useEffect, useState } from "react";
-
+import { createClient } from 'urql';
 
 export default function Detail({Data, DonationsData}) {
+
+  const [tokens, setTokens] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+
+  const QueryURL = "https://api.studio.thegraph.com/query/54911/funddao/v0.0.1";
+
+  const query = `
+  {
+    donateds(orderBy: id) {
+      donar
+      timestamp
+      amount
+    }
+  }
+  `;
+
+  const client = createClient({
+    url: QueryURL
+  });
+
+  useEffect(() => {
+    if (!client) {
+      return;
+    }
+
+    const getTokens = async () => {
+      try {
+        const { data } = await client.query(query).toPromise();
+        setTokens(data.campaignCreateds);
+        // console.log(data)
+        setIsLoading(false); // Data is loaded
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    getTokens();
+  }, [client]);
+
+
 
   console.log(DonationsData);
   const [mydonations, setMydonations] = useState([]);
@@ -79,8 +120,11 @@ export default function Detail({Data, DonationsData}) {
 
 
       const contract1 = new ethers.Contract(Data.address, CampaignFactory.abi, signer);
+      const amountInEther = ethers.utils.parseEther((amount.toString()));
+
       
-      const transaction1 = await contract1.donate({value: ethers.utils.parseEther(amount)});
+      
+      const transaction1 = await contract1.donate(ethers.utils.parseEther(amount));
       await transaction1.wait();
       console.log(transaction1);
       setChange(true);

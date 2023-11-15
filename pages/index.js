@@ -19,7 +19,7 @@ export default function Index({AllData, HealthData, EducationData,AnimalData}) {
   const [isLoading, setIsLoading] = useState(true);
 
 
-  const QueryURL = "https://api.studio.thegraph.com/query/54911/fundingdao/v0.0.1";
+  const QueryURL = "https://api.studio.thegraph.com/query/54911/funddao/v0.0.1";
 
   const query = `
   {

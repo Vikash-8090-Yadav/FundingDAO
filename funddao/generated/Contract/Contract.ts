@@ -215,6 +215,21 @@ export class Contract extends ethereum.SmartContract {
     );
   }
 
+  owner(): Address {
+    let result = super.call("owner", "owner():(address)", []);
+
+    return result[0].toAddress();
+  }
+
+  try_owner(): ethereum.CallResult<Address> {
+    let result = super.tryCall("owner", "owner():(address)", []);
+    if (result.reverted) {
+      return new ethereum.CallResult();
+    }
+    let value = result.value;
+    return ethereum.CallResult.fromValue(value[0].toAddress());
+  }
+
   receivedAmount(): BigInt {
     let result = super.call("receivedAmount", "receivedAmount():(uint256)", []);
 
@@ -375,6 +390,10 @@ export class DonateCall__Inputs {
 
   constructor(call: DonateCall) {
     this._call = call;
+  }
+
+  get requiredAmount1(): BigInt {
+    return this._call.inputValues[0].value.toBigInt();
   }
 }
 

@@ -1,5 +1,9 @@
 [
-  { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
   {
     "anonymous": false,
     "inputs": [
@@ -115,15 +119,27 @@
     "inputs": [],
     "name": "Rowner",
     "outputs": [
-      { "internalType": "address payable", "name": "", "type": "address" }
+      {
+        "internalType": "address payable",
+        "name": "",
+        "type": "address"
+      }
     ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "name", "type": "string" },
-      { "internalType": "string", "name": "message", "type": "string" }
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "message",
+        "type": "string"
+      }
     ],
     "name": "buyChai",
     "outputs": [],
@@ -132,15 +148,31 @@
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "campaignTitle", "type": "string" },
+      {
+        "internalType": "string",
+        "name": "campaignTitle",
+        "type": "string"
+      },
       {
         "internalType": "uint256",
         "name": "requiredCampaignAmount",
         "type": "uint256"
       },
-      { "internalType": "string", "name": "imgURI", "type": "string" },
-      { "internalType": "string", "name": "category", "type": "string" },
-      { "internalType": "string", "name": "storyURI", "type": "string" }
+      {
+        "internalType": "string",
+        "name": "imgURI",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "category",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "storyURI",
+        "type": "string"
+      }
     ],
     "name": "createCampaign",
     "outputs": [],
@@ -148,14 +180,32 @@
     "type": "function"
   },
   {
-    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "name": "deployedCampaigns",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "requiredAmount1",
+        "type": "uint256"
+      }
+    ],
     "name": "donate",
     "outputs": [],
     "stateMutability": "payable",
@@ -164,7 +214,13 @@
   {
     "inputs": [],
     "name": "getBalance",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
@@ -174,10 +230,26 @@
     "outputs": [
       {
         "components": [
-          { "internalType": "string", "name": "name", "type": "string" },
-          { "internalType": "string", "name": "message", "type": "string" },
-          { "internalType": "uint256", "name": "timestamp", "type": "uint256" },
-          { "internalType": "address", "name": "from", "type": "address" }
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "message",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "timestamp",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "from",
+            "type": "address"
+          }
         ],
         "internalType": "struct CampaignFactory.Memo[]",
         "name": "",
@@ -189,15 +261,40 @@
   },
   {
     "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address payable",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "receivedAmount",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
     "name": "requiredAmount",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "view",
     "type": "function"
   }
