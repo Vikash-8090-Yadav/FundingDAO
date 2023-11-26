@@ -1,3 +1,5 @@
+
+
 import styled from "styled-components";
 import Image from "next/image";
 import {ethers} from 'ethers';
@@ -7,10 +9,10 @@ import { useEffect, useState } from "react";
 import { createClient } from 'urql';
 
 export default function Detail({Data, DonationsData}) {
-
-  const [tokens, setTokens] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
+  const [mydonations, setMydonations] = useState([]);
+  const [story, setStory] = useState('');
+  const [amount, setAmount] = useState();
+  const [change, setChange] = useState(false);
 
   const QueryURL = "https://api.studio.thegraph.com/query/54911/funddao/v0.0.1";
 
@@ -28,32 +30,6 @@ export default function Detail({Data, DonationsData}) {
     url: QueryURL
   });
 
-  useEffect(() => {
-    if (!client) {
-      return;
-    }
-
-    const getTokens = async () => {
-      try {
-        const { data } = await client.query(query).toPromise();
-        setTokens(data.campaignCreateds);
-        // console.log(data)
-        setIsLoading(false); // Data is loaded
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    getTokens();
-  }, [client]);
-
-
-
-  console.log(DonationsData);
-  const [mydonations, setMydonations] = useState([]);
-  const [story, setStory] = useState('');
-  const [amount, setAmount] = useState();
-  const [change, setChange] = useState(false);
 
   useEffect(() => {
     const Request = async () => {
@@ -65,7 +41,7 @@ export default function Detail({Data, DonationsData}) {
       const Address = await signer.getAddress();
 
       const provider = new ethers.providers.JsonRpcProvider(
-        "https://polygon-mumbai.g.alchemy.com/v2/MeKFrDq5O-mlM8I0CzXpKg0pRvdNRjxF"
+        process.env.NEXT_PUBLIC_RPC_URL
       );
     
       const contract = new ethers.Contract(
@@ -73,20 +49,12 @@ export default function Detail({Data, DonationsData}) {
         Campaign.abi,
         provider
       );
-      const contract1 = new ethers.Contract(
-        Data.address,
-        CampaignFactory.abi,
-        provider
-      );
 
       fetch('https://crowdfunding.infura-ipfs.io/ipfs/' + Data.storyUrl)
             .then(res => res.text()).then(data => storyData = data);
 
-      const MyDonations = contract1.filters.donated(Address);
-      const MyAllDonations = await contract1.queryFilter(MyDonations);
-
-      // const m = await contract1.donated();
-      // console.log("The addres",m);
+      const MyDonations = contract.filters.donated(Address);
+      const MyAllDonations = await contract.queryFilter(MyDonations);
 
       setMydonations(MyAllDonations.map((e) => {
         return {
@@ -95,16 +63,12 @@ export default function Detail({Data, DonationsData}) {
           timestamp : parseInt(e.args.timestamp)
         }
       }));
-      Data.address,
-      Campaign.abi,
-      provider
+
       setStory(storyData);
     }
 
     Request();
   }, [change])
-
-  console.log("The",mydonations)
 
 
   const DonateFunds = async () => {
@@ -113,20 +77,11 @@ export default function Detail({Data, DonationsData}) {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       
-      // const contract = new ethers.Contract(Data.address, Campaign.abi, signer);
+      const contract = new ethers.Contract(Data.address, Campaign.abi, signer);
       
-      // const transaction = await contract.donate({value: ethers.utils.parseEther(amount)});
-      // await transaction.wait();
+      const transaction = await contract.donate({value: ethers.utils.parseEther(amount)});
+      await transaction.wait();
 
-
-      const contract1 = new ethers.Contract(Data.address, CampaignFactory.abi, signer);
-      const amountInEther = ethers.utils.parseEther((amount.toString()));
-
-      
-      
-      const transaction1 = await contract1.donate(ethers.utils.parseEther(amount));
-      await transaction1.wait();
-      console.log(transaction1);
       setChange(true);
       setAmount('');
       
@@ -237,12 +192,6 @@ export async function getStaticProps(context) {
     provider
   );
 
-  const contract1 = new ethers.Contract(
-    context.params.address,
-    CampaignFactory.abi,
-    provider
-  );
-
   const title = await contract.title();
   const requiredAmount = await contract.requiredAmount();
   const image = await contract.image();
@@ -252,11 +201,6 @@ export async function getStaticProps(context) {
 
   const Donations = contract.filters.donated();
   const AllDonations = await contract.queryFilter(Donations);
-
-  const Donations1 = contract1.filters.donated();
-  const AllDonations1 = await contract1.queryFilter(Donations1);
-
-  
 
 
   const Data = {
@@ -269,13 +213,12 @@ export async function getStaticProps(context) {
       owner,
   }
 
-  const DonationsData =  AllDonations1.map((e) => {
+  const DonationsData =  AllDonations.map((e) => {
     return {
       donar: e.args.donar,
       amount: ethers.utils.formatEther(e.args.amount),
       timestamp : parseInt(e.args.timestamp)
   }});
-  
 
   return {
     props: {
@@ -407,3 +350,5 @@ const DonationData = styled.p`
   margin: 0;
   padding: 0;
 `;
+
+
