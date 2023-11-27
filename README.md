@@ -49,7 +49,7 @@ Welcome to FundingDao, a revolutionary platform that empowers individuals and bu
     </tr>
     <tr>
       <td>Vercel</td>
-      <td>https://decentralized-olx.vercel.app/</td>
+      <td>funding-dao-nine.vercel.app</td>
     </tr>
     </table>
 </div>
