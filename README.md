@@ -8,7 +8,7 @@
 Welcome to FundingDao, a revolutionary platform that empowers individuals and businesses to turn their dreams into reality. Our crowdfunding application is designed to connect passionate creators with a supportive community of backers, fostering innovation, creativity, and positive impact.
 
 <h1 align="center"> 
-  <span style="color: yellow">OLX.DAPp MarketPlace</span>
+  <span style="color: yellow">Funding Dao/span>
 </h1>
 <p> <b>It is a groundbreaking platform revolutionizing crowdfunding. Seamlessly connect creators with backers across various genres, from tech startups to creative arts. Our secure and flexible funding options cater to diverse projects, ensuring a hassle-free experience. Engage your backers with enticing rewards, and leverage real-time analytics for informed decision-making. Join our vibrant community, explore success stories, and make your mark in the next era of crowdfunding innovation.</b> </p>
 
@@ -57,14 +57,14 @@ Welcome to FundingDao, a revolutionary platform that empowers individuals and bu
 
 ## 🚀 Setting up the project locally
 
-To run the Edu.dev locally, follow these steps:
+To run the FundingDao locally, follow these steps:
 1. Clone the repository:
  ```bash
- git clone https://github.com/Vikash-8090-Yadav/Decentralized-OLX
+ git clone https://github.com/Vikash-8090-Yadav/FundingDAO
  ```
  2. Navigate to the project directory:
 ```bash
-cd  Decentralized-OLX/Frontend
+cd  FundingDao/Frontend
 ```
 3. Node Re-versioning
 
@@ -81,7 +81,7 @@ npm install --legacy-peer-deps
 npm run dev
 ```
 6. Access the dApp:
-Open your web browser and visit http://localhost:3000 to interact with the OLX application.
+Open your web browser and visit http://localhost:3000 to interact with the Funding Dao= application.
 
 <br>
 
@@ -147,15 +147,10 @@ A subgraph extracts data from a blockchain, processing it and storing it so that
 ![Screenshot from 2023-11-28 02-54-06](https://github.com/Vikash-8090-Yadav/FundingDAO/assets/85225156/27c8e103-19c6-495d-8210-3cc77f54d496)
 
 
-### Review
+### Discussion
 
 ![Screenshot from 2023-11-28 02-55-06](https://github.com/Vikash-8090-Yadav/FundingDAO/assets/85225156/941dbea3-2d04-4b64-b270-d4c46e0519ae)
 
-
-### Review ITEM
-
-
-![Screenshot from 2023-10-15 07-58-53](https://github.com/Vikash-8090-Yadav/Decentralized-OLX/assets/85225156/26b8e185-b634-4cf1-b645-b76b187aeb42)
 
 
 ### Graph 
