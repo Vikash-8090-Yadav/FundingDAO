@@ -116,6 +116,13 @@ Funding Dao addresses the challenge of funding constraints that often hinder cre
 
 ## Graph
 
+### Use Case
+
+I used graph for showing whole campaign like name, wallet address, data, time and many more 
+I used  graph to show the recent  donation and My donation under My campaign part
+
+I used Graph to show the messages recieved for the campaign under the discussion/ review section. 
+
 ### Subgraph Link: https://thegraph.com/studio/subgraph/funddao/ 
 A subgraph extracts data from a blockchain, processing it and storing it so that it can be easily queried via GraphQL.
 
@@ -152,7 +159,8 @@ A subgraph extracts data from a blockchain, processing it and storing it so that
 
 
 ### Graph 
-![Screenshot from 2023-10-15 07-59-26](https://github.com/Vikash-8090-Yadav/Decentralized-OLX/assets/85225156/0955f7a2-cca3-4f94-9368-e0525823e45f)
+
+![Screenshot from 2023-11-28 03-06-54](https://github.com/Vikash-8090-Yadav/FundingDAO/assets/85225156/90e534c5-2673-40d8-a0c3-68875b18710e)
 
 
 ## 🛠️Technologies we used
@@ -179,8 +187,7 @@ A subgraph extracts data from a blockchain, processing it and storing it so that
 
 
 ## 🎥 Video Demo
-
-https://youtu.be/EHjhnc4B_9M
+https://youtu.be/uQZlYGXgx9k
 
 
 ## 🤝 Contributing
